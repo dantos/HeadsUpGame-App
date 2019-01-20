@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/baseGray"
+    tools:context=".ScoreboardActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <ListView
+        android:id="@+id/resultList"
+        android:layout_width="328dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tryAgainBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtVScoredAmount"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/tryAgainBtn"
+        android:layout_width="389dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/themeBlue"
+        android:backgroundTint="@color/themeBlue"
+        android:fontFamily="@font/acme"
+        android:text="@string/txtBtnTryAgain"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/baseGray"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/txtChangeTopicBtn"
+        android:layout_width="446dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/tap_button_background"
+        android:fontFamily="@font/acme"
+        android:text="@string/txtTapChoose"
+        android:textColor="@color/baseGray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtvWordsScored"
+        android:layout_width="332dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/boogaloo"
+        android:text="@string/txtWordScored"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/themeBlue"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtChangeTopicBtn" />
+
+    <TextView
+        android:id="@+id/txtVScoredAmount"
+        android:layout_width="99dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/baloo"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/themeRoyalBlue"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtvWordsScored" />
+
+</android.support.constraint.ConstraintLayout>
