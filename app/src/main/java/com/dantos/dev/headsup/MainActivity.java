@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int startTimer = 5;
     private int longTimer  = 60;
     private int score      = 0;
+    private long gameTimeLeft = 0;
+    private boolean gameTimerCanceled = false;
 
     String topics       = "";
     int selectedTopicId = 0;
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     TextView shortCounter;
     TextView timer;
     TextView hintWord;
+    ArrayList<String> currentHint;
+
+    CountDownTimer gameTimer;
 
 
     @Override
@@ -74,11 +79,52 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
+
+        if (null != gameTimer) {
+            gameTimer.cancel();
+            gameTimerCanceled = true;
+            /*When canceled onTick is done one more time*/
+            longTimer++;
+        }
     }
 
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+        if (gameTimerCanceled){
+            gameTimer = new CountDownTimer(gameTimeLeft, 1_000) {
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    String remainingTimeText = getResources().getString(R.string.remaning_time);
+                    timer.setText(remainingTimeText + " " + String.valueOf(longTimer));
+                    longTimer--;
+                    gameTimeLeft = millisUntilFinished;
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                    String successfulAnswered    = "0";
+                    currentHint.add(1, successfulAnswered);
+                    resultHistory.add(currentHint);
+
+                    timer.setVisibility(View.INVISIBLE);
+
+                    Intent intent = new Intent(getApplicationContext(), ScoreboardActivity.class);
+                    intent.putExtra("resultHistory", resultHistory);
+                    intent.putExtra("score", score);
+                    intent.putExtra("topics", topics);
+                    intent.putExtra("selectedTopicId", selectedTopicId);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+
+                }
+            }.start();
+        }
     }
 
     private void initView() {
@@ -91,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensor        = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-        new CountDownTimer(6_000, 1_000) {
+        new CountDownTimer((long)(startTimer+1)*1000, 1_000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -103,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onFinish() {
                 shortCounter.setVisibility(View.INVISIBLE);
                 startGameTimer();
-                changeHintWord();
+                currentHint = changeHintWord();
 
             }
         }.start();
@@ -112,17 +158,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void startGameTimer() {
 
-        new CountDownTimer(61_000, 1_000) {
+        gameTimer = new CountDownTimer((long)(longTimer+1)*1000, 1_000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 String remainingTimeText = getResources().getString(R.string.remaning_time);
                 timer.setText(remainingTimeText + " " + String.valueOf(longTimer));
                 longTimer--;
+                gameTimeLeft = millisUntilFinished;
+
             }
 
             @Override
             public void onFinish() {
+
+                String successfulAnswered    = "0";
+                currentHint.add(1, successfulAnswered);
+                resultHistory.add(currentHint);
 
                 timer.setVisibility(View.INVISIBLE);
 
@@ -187,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                 if (finalSpeed > MOVEMENT_THRESHOLD) {
 
-                    ArrayList<String> hintResult = changeHintWord();
+
                     String successfulAnswered    = "0";
 
                     if (speed < 0) { //Moved forward
@@ -195,9 +247,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         score += 1;
                     }
 
-                    hintResult.add(1, successfulAnswered);
-                    resultHistory.add(hintResult);
+                    currentHint.add(1, successfulAnswered);
+                    resultHistory.add(currentHint);
 
+                    currentHint = changeHintWord();
                 }
                 lastZPosition = zPosition;
                 lastYPosition = yPosition;
