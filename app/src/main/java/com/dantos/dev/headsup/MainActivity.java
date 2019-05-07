@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     TextView shortCounter;
     TextView timer;
     TextView hintWord;
+    ArrayList<String> currentHint;
 
 
     @Override
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onFinish() {
                 shortCounter.setVisibility(View.INVISIBLE);
                 startGameTimer();
-                changeHintWord();
+                currentHint = changeHintWord();
 
             }
         }.start();
@@ -123,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             @Override
             public void onFinish() {
+
+                String successfulAnswered    = "0";
+                currentHint.add(1, successfulAnswered);
+                resultHistory.add(currentHint);
 
                 timer.setVisibility(View.INVISIBLE);
 
@@ -195,9 +200,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         score += 1;
                     }
 
-                    hintResult.add(1, successfulAnswered);
-                    resultHistory.add(hintResult);
+                    currentHint.add(1, successfulAnswered);
+                    resultHistory.add(currentHint);
 
+                    currentHint = changeHintWord();
                 }
                 lastZPosition = zPosition;
                 lastYPosition = yPosition;
