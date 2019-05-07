@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                 if (finalSpeed > MOVEMENT_THRESHOLD) {
 
-                    ArrayList<String> hintResult = changeHintWord();
+
                     String successfulAnswered    = "0";
 
                     if (speed < 0) { //Moved forward
