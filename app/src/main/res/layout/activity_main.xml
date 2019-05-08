@@ -5,7 +5,9 @@
     android:id="@+id/mainActivityBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/themeRed"
+    android:background="@color/themeGreen"
+    android:focusable="true"
+    tools:clickable="true"
     tools:context=".MainActivity">
 
     <TextView
