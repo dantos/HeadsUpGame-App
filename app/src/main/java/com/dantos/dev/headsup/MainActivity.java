@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private long lastTimeUpdate = 0;
     private float lastYPosition;
     private float lastZPosition;
-    private static final int MOVEMENT_THRESHOLD = 1800;
+    private static final int MOVEMENT_THRESHOLD = 1200;
 
     private int startTimer = 5;
     private int longTimer  = 120;
