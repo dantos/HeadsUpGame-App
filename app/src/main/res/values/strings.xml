@@ -2,7 +2,7 @@
     <string name="app_name">HEADSUP</string>
     <string name="title_activity_topic_selector">TopicSelector</string>
     <string name="start_btn">Start!</string>
-    <string name="remaning_time">Time remaning:</string>
+    <string name="remaining_time">Time remaining:</string>
     <string name="txtWordScored">Words Scored</string>
     <string name="txtBtnTryAgain">Try again</string>
     <string name="txtTapChoose">»Tap to pick another topic«</string>
