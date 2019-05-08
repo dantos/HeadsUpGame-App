@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 if (finalSpeed > MOVEMENT_THRESHOLD && speed < 0) {
 
 
-                    String successfulAnswered    = "0";
+                    String successfulAnswered    = "1";
 
                     score += 1;
 
