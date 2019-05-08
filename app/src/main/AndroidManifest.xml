@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dantos.dev.headsup">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:configChanges="orientation|keyboardHidden"
         android:allowBackup="true"

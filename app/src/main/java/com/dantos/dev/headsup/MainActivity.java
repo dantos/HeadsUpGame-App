@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.CountDownTimer;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,14 +28,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private SensorManager sensorManager;
     private Sensor sensor;
+    private ConstraintLayout mainActivityBackground;
 
     private long lastTimeUpdate = 0;
     private float lastYPosition;
     private float lastZPosition;
-    private static final int MOVEMENT_THRESHOLD = 1800;
+    private static final int MOVEMENT_THRESHOLD = 1200;
 
     private int startTimer = 5;
-    private int longTimer  = 60;
+    private int longTimer  = 120;
     private int score      = 0;
     private long gameTimeLeft = 0;
     private boolean gameTimerCanceled = false;
@@ -132,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         shortCounter = findViewById(R.id.shortCounter);
         hintWord     = findViewById(R.id.hintWord);
         timer        = findViewById(R.id.timer);
+        mainActivityBackground = findViewById(R.id.mainActivityBackground);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor        = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -151,6 +154,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 startGameTimer();
                 currentHint = changeHintWord();
 
+                mainActivityBackground.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String successfulAnswered    = "0";
+                        currentHint.add(1, successfulAnswered);
+                        resultHistory.add(currentHint);
+
+                        currentHint = changeHintWord();
+                    }
+                });
             }
         }.start();
 
@@ -237,15 +250,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 float speed      = yPosition + zPosition - lastYPosition - lastZPosition;
                 float finalSpeed = Math.abs(speed) / diffTime * 10000;
 
-                if (finalSpeed > MOVEMENT_THRESHOLD) {
+                /*
+                 * Use movement only to the front to avoid false double movement detection.
+                 */
+                if (finalSpeed > MOVEMENT_THRESHOLD && speed < 0) {
 
 
-                    String successfulAnswered    = "0";
+                    String successfulAnswered    = "1";
 
-                    if (speed < 0) { //Moved forward
-                        successfulAnswered = "1";
-                        score += 1;
-                    }
+                    score += 1;
 
                     currentHint.add(1, successfulAnswered);
                     resultHistory.add(currentHint);

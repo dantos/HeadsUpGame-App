@@ -85,7 +85,7 @@
         android:fontFamily="@font/baloo"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="@color/themeRoyalBlue"
+        android:textColor="@color/themeGreen"
         android:textSize="50sp"
         android:textStyle="bold"
         android:typeface="normal"

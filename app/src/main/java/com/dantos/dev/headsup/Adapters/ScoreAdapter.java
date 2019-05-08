@@ -39,7 +39,7 @@ public class ScoreAdapter extends BaseAdapter {
         ArrayList<String> score = scoreList.get(position);
         int color               = ContextCompat.getColor(context, R.color.themeRed);
 
-        if (score.get(1).equals("1")) { color = ContextCompat.getColor(context, R.color.themeBlack); }
+        if (score.get(1).equals("1")) { color = ContextCompat.getColor(context, R.color.themeGreen); }
 
         TextView scoreHintText  = view.findViewById(R.id.scoreHintText);
         scoreHintText.setText(score.get(0));
