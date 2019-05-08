@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final int MOVEMENT_THRESHOLD = 1800;
 
     private int startTimer = 5;
-    private int longTimer  = 60;
+    private int longTimer  = 120;
     private int score      = 0;
     private long gameTimeLeft = 0;
     private boolean gameTimerCanceled = false;
